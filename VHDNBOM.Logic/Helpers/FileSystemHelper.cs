@@ -36,6 +36,7 @@ using DiscUtils.Vhdx;
 using DiscUtils.Registry;
 using System.IO.Abstractions;
 using VHDNBOM.Logic.Helpers.Decorators;
+using VHDNBOM.Logic.Helpers.Streams;
 
 namespace VHDNBOM.Logic.Helpers
 {
@@ -242,15 +243,10 @@ namespace VHDNBOM.Logic.Helpers
             }
 
             List<StreamExtent> extents = new List<StreamExtent>(ConvertBitmapToRanges(volBitmap, clusterSize));
-            List<StreamExtent> outOfRangeExtents = extents.Where(x => x.Start + x.Length > sourceFileSystemToClone.Length).ToList();   //removes extenst that are beyond the source stream - bitmap size is always a multiple of 8, so it can contain bits for clusters that do not exist
-            outOfRangeExtents.ForEach((extent) =>
-            {
-                extents.Remove(extent);
-            });
 
             SparseStream contentStream = SparseStream.FromStream(sourceFileSystemToClone, Ownership.None, extents);
             {
-                StreamPump pump = new StreamPump()
+                ImprovedStreamPump pump = new ImprovedStreamPump()
                 {
                     InputStream = contentStream,
                     OutputStream = destinationLocationStream,

@@ -151,6 +151,7 @@
     <Compile Include="Helpers\IFileSystemHelper.cs" />
     <Compile Include="Helpers\IOperatingSystemHelper.cs" />
     <Compile Include="Helpers\OperatingSystemHelper.cs" />
+    <Compile Include="Helpers\Streams\ImprovedStreamPump.cs" />
     <Compile Include="LogicModule.cs" />
     <Compile Include="MigrationSteps\BaseMigrationStep.cs" />
     <Compile Include="MigrationSteps\CloneTempVhdToFinalVhdMigrationStep.cs" />
